@@ -100,6 +100,6 @@ Sometimes the model is getting stuck at places and can't find the next appropria
 
 ## 👨‍💻 Author
 
-- Arnab Singha, Computer Science department, RKMVERI
+[**Arnab Singha**](https://arnabsingha200228.github.io/), *Computer Science department*, [RKMVERI](https://rkmvu.ac.in/).
 
 ---
