@@ -1,16 +1,20 @@
-# Catch-It-RL: Reinforcement Learning Agent Using DQN
+# Catch-It-RL: Reinforcement Learning Agent Using DQN to play custom game
 
 ## 📌 Project Overview
 
-This project explores how a reinforcement learning agent can learn to control a rectangular paddle to catch falling items in a custom 2D environment (`CatchItEnv`). The environment and agent are designed and trained using **Deep Q-Learning (DQN)**.
+This project explores how a reinforcement learning agent can learn to play the Catch It 2D game (custom made 2D game). The agent is trained using **Deep Q-Networks (DQN)**.
 
 ---
+## 🎯 The Catch It game Environment
+The **CatchIt** game is a custom-designed 2D game environment where a rectangular catcher object (agent) moves around the screen to catch items that spawn randomly in a field within a specified amount of time. The environment provides a discrete action space allowing the catcher to move left, right, up or down, and a continuous observation space that captures both absolute and relative positions of the catcher and the items. The game challenges the agent to learn spatial awareness and timing to catch the items efficiently, making it a simple yet effective testbed for reinforcement learning algorithms like DQN.
+
+
 
 ## 🎯 Objective
 
-- Build a simulated environment where an item falls vertically.
-- Train an agent to move a paddle left/right to catch the item.
-- Maximize the agent’s performance using Q-learning with function approximation (neural networks).
+- Build an environment for simulating the Catch It game.
+- Train an agent to move the catcher left/right/up/down to reach the item and catch it.
+- Maximize the agent’s performance using Q-learning with neural networks as function approximators (DQN).
 
 ---
 
@@ -18,21 +22,19 @@ This project explores how a reinforcement learning agent can learn to control a 
 
 **Name**: `CatchItEnv`  
 **Observation Space**:  
-- `rect_x`, `rect_y`: Paddle position  
+- `rect_x`, `rect_y`: Catcher position  
 - `item_x`, `item_y`: Falling item position  
-- `dx`, `dy`: Relative difference (paddle to item)
+- `dx`, `dy`: Relative difference (catcher to item)
 
 **Action Space**:  
-- Discrete(5): `Left`, `Right`, `Stay`, `Far Left`, `Far Right`
+- Discrete(4): `Left`, `Right`, `Up`, `Down`
 
-**Termination Conditions**:  
-- Catch or miss the falling item  
-- Or max steps reached
+**Termination Condition of the game**:  
+- Timeout of timer
 
-**Reward Scheme**:
-- `+1` for successful catch  
-- `-1` for miss  
-- Small distance-based shaping reward for guiding training
+**Termination Condition for training**:  
+- Catching of item
+- Reaching of max_steps
 
 ---
 
@@ -50,18 +52,25 @@ This project explores how a reinforcement learning agent can learn to control a 
 
 ---
 
-## ⚙️ Training Strategy
+## ⚙️ Training Process and Setups
 
 - Environment reset includes diverse initial positions (randomized).
 - Reward shaping includes both sparse reward and movement incentive.
 - Target network synced periodically.
 - Experience replay sampled in mini-batches.
+- The original game was constrained to catch the item once the catcher rectangle fully overlaps the items, but for the sake of training the agent this constraint is removed and only partial overlap can catch the item.
+
+## Training Strategies
+- Training with randomized actions for exploration
+- Training with heuristic guided movement actions for exploration
+- Training with mixed (weighted sampling of heuristic guided movements and random movements) actions
+- Training in multiple iterations using various epsilon values
 
 ---
 
 ## 🚧 Challenges Faced
 
-- Agent stuck in corner or oscillating behaviors
+- Agent stuck in random places and oscillating behaviors
 - Poor generalization to rare spatial configurations
 - Sparse feedback from environment
 - Difficult to handle spatial symmetries with vanilla MLP
@@ -70,18 +79,14 @@ This project explores how a reinforcement learning agent can learn to control a 
 
 ## ✅ Final Outcome
 
-Despite several tuning challenges and unsuccessful attempts using hard case tracking, the agent eventually learned **through improved state representation, better curriculum of item/paddle placement**, and manual inspection/debugging.
+The agent learned to play the Catch It game
 
 The final agent is capable of **consistently catching items across the environment**, indicating convergence and success.
 
 ---
 
-## 📁 Files & Structure
-
-- `catchit_env.py`: Custom Gym-compatible environment
-- `dqn_agent.py`: DQN implementation
-- `train.py`: Training loop
-- `watch.py`: Visualization of trained agent
+## ⚠️ Evaluation Strategy and Stuck State Mitigation
+Sometimes the model is getting stuck at places and can't find the next appropriate action. To solve this isssue we can use stochastic policy execution with 5% randomness at testing times. Although, in most of the cases the policy itself is found to be capable of handling this and is not getting stuck. 
 
 ---
 
@@ -90,13 +95,11 @@ The final agent is capable of **consistently catching items across the environme
 - Use **Dueling DQN** or **Double DQN** for more stable learning
 - Try **Actor-Critic** methods like PPO
 - Include **frame stacking or visual input** for scaling
-- Generalize to **non-rectangular paddle** or **variable falling speed**
-
+- Make the catcher accelarate or deaccelarate according to need to catch the items faster to break the bondage of time
 ---
 
 ## 👨‍💻 Author
 
-- Arnab Singha, MSc CS student at RKMVERI
+- Arnab Singha, Computer Science department, RKMVERI
 
 ---
-
