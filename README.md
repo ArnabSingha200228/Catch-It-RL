@@ -1,4 +1,4 @@
-# Catch-It-RL: Reinforcement Learning Agent Using DQN to play custom game
+# Catch-It-RL: Reinforcement Learning Agent Using DQN to play a custom 2D Catch It game
 
 ## 📌 Project Overview
 
