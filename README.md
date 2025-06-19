@@ -60,7 +60,7 @@ The **Catch-It** game is a custom-designed 2D game environment where a rectangul
 - Experience replay sampled in mini-batches.
 - The original game was constrained to catch the item once the catcher rectangle fully overlaps the items, but for the sake of training the agent this constraint is removed and only partial overlap can catch the item.
 
-## Training Strategies
+## 💡 Training Strategies
 - Training with randomized actions for exploration
 - Training with heuristic guided movement actions for exploration
 - Training with mixed (weighted sampling of heuristic guided movements and random movements) actions
