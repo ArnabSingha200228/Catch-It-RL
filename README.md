@@ -1,7 +1,4 @@
-# Catch-It-RL
-AI player training in Catch It game environment using Reinforcement Learning
-
-# CatchIt: Reinforcement Learning Agent Using DQN
+# Catch-It-RL: Reinforcement Learning Agent Using DQN
 
 ## 📌 Project Overview
 
