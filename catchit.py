@@ -25,9 +25,9 @@ class CatchItEnvOneStep(gym.Env):
         super().__init__()
         self.ww, self.wh = 400, 400
         
-        self.rect_x, self.rect_y, self.rect_size = 300, 200, 30
+        self.rect_x, self.rect_y, self.rect_size = 300, 200, 20
         self.rect_speed = 10
-        self.item_size = 15
+        self.item_size = 10
 
         self.observation_space = gym.spaces.Box(low=-1.0, high=1.0, shape=(6,), dtype=np.float32)
        
@@ -97,18 +97,18 @@ class CatchItEnvOneStep(gym.Env):
         new_dist = np.linalg.norm([self.rect_x - self.item_x, self.rect_y - self.item_y])
     
         # catch condition (partial overlap)
-        # overlap = (
-        #     abs(self.rect_x - self.item_x) < self.item_size and
-        #     abs(self.rect_y - self.item_y) < self.item_size
-        # )
+        overlap = (
+            abs(self.rect_x - self.item_x) < self.item_size and
+            abs(self.rect_y - self.item_y) < self.item_size
+        )
         
         # Define rectangles
-        agent_rect = pygame.Rect(self.rect_x, self.rect_y, self.rect_size, self.rect_size)
-        item_rect = pygame.Rect(self.item_x, self.item_y, self.item_size, self.item_size)
-        overlap = agent_rect.colliderect(item_rect)
+        # agent_rect = pygame.Rect(self.rect_x, self.rect_y, self.rect_size, self.rect_size)
+        # item_rect = pygame.Rect(self.item_x, self.item_y, self.item_size, self.item_size)
+        # overlap = agent_rect.colliderect(item_rect)
     
         if overlap:
-            reward = 1.0
+            reward = 4.0
             self.score += 1
             caught = True
             # Respawn item at grid-aligned position
@@ -170,7 +170,7 @@ class CatchItEnvOneStep(gym.Env):
             dy
         )
         
-        done = caught or (self.steps >= 1000)
+        done = caught or (self.steps >= 4000)
         
         return np.array(self.state, dtype=np.float32), reward, done, False, {}
 
@@ -226,9 +226,9 @@ class CatchItEnvRender(gym.Env):
         super().__init__()
         self.ww, self.wh = 400, 400
         
-        self.rect_x, self.rect_y, self.rect_size = 300, 200, 30
+        self.rect_x, self.rect_y, self.rect_size = 300, 200, 20
         self.rect_speed = 10
-        self.item_size = 15
+        self.item_size = 10
         self.max_steps = max_steps
 
         self.observation_space = gym.spaces.Box(low=-1.0, high=1.0, shape=(6,), dtype=np.float32)
@@ -301,14 +301,14 @@ class CatchItEnvRender(gym.Env):
         new_dist = np.linalg.norm([self.rect_x - self.item_x, self.rect_y - self.item_y])
     
         # Soft overlap condition (forgiveness)
-        # overlap = (
-        #     abs(self.rect_x - self.item_x) < self.item_size and
-        #     abs(self.rect_y - self.item_y) < self.item_size
-        # )
-        # Define rectangles
-        agent_rect = pygame.Rect(self.rect_x, self.rect_y, self.rect_size, self.rect_size)
-        item_rect = pygame.Rect(self.item_x, self.item_y, self.item_size, self.item_size)
-        overlap = agent_rect.colliderect(item_rect)
+        overlap = (
+            abs(self.rect_x - self.item_x) < self.item_size and
+            abs(self.rect_y - self.item_y) < self.item_size
+        )
+        # # Define rectangles
+        # agent_rect = pygame.Rect(self.rect_x, self.rect_y, self.rect_size, self.rect_size)
+        # item_rect = pygame.Rect(self.item_x, self.item_y, self.item_size, self.item_size)
+        # overlap = agent_rect.colliderect(item_rect)
     
         if overlap:
             reward = 25.0
