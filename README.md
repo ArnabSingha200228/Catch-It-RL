@@ -64,7 +64,7 @@ The **Catch-It** game is a custom-designed 2D game environment where a rectangul
 - Training with randomized actions for exploration
 - Training with heuristic guided movement actions for exploration
 - Training with mixed (weighted sampling of heuristic guided movements and random movements) actions
-- Training in multiple iterations using various epsilon values
+- Training in multiple iterations using various initial epsilon values
 
 ---
 
