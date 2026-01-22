@@ -8,7 +8,9 @@ This project explores how a reinforcement learning agent can learn to play the C
 ## 🎯 The Catch-It game Environment
 The **Catch-It** game is a custom-designed 2D game environment where a rectangular catcher object (agent) moves around the screen to Catch-Items that spawn randomly in a field within a specified amount of time. The environment provides a discrete action space allowing the catcher to move left, right, up or down, and a continuous observation space that captures both absolute and relative positions of the catcher and the items. The game challenges the agent to learn spatial awareness and timing to catch the items efficiently, making it a simple yet effective testbed for reinforcement learning algorithms like DQN.
 
-
+<p align="center">
+  <img src="Resource/catch-it.png" width="480"/>
+</p>
 
 ## 🎯 Objective
 
